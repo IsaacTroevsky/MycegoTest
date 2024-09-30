@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список файлов</title>
+</head>
+<body>
+    <h1>Список файлов</h1>
+    <ul>
+        {% for file in files %}
+            <li>
+                {{ file['name'] }} ({{ file['type'] }})
+                <a href="{{ url_for('download_file', file_url=file['file'], file_name=file['name']) }}">Скачать</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
