@@ -7,13 +7,30 @@
 </head>
 <body>
     <h1>Список файлов</h1>
-    <ul>
-        {% for file in files %}
+
+    <form method="GET" action="/files">
+        <input type="hidden" name="public_key" value="{{ public_key }}">
+        <label for="file_type">Фильтр файлов:</label>
+        <select name="file_type" id="file_type">
+            <option value="all">Все</option>
+            <option value="images">Изображения</option>
+            <option value="documents">Документы</option>
+        </select>
+        <button type="submit">Применить фильтр</button>
+    </form>
+
+    <form method="POST" action="/download_multiple">
+        <ul>
+            {% for file in files %}
             <li>
+                <input type="checkbox" name="file_urls" value="{{ file['file'] }}">
+                <input type="hidden" name="file_names" value="{{ file['name'] }}">
                 {{ file['name'] }} ({{ file['type'] }})
-                <a href="{{ url_for('download_file', file_url=file['file'], file_name=file['name']) }}">Скачать</a>
             </li>
-        {% endfor %}
-    </ul>
+            {% endfor %}
+        </ul>
+        <button type="submit">Скачать выбранные файлы</button>
+    </form>
 </body>
 </html>
+
